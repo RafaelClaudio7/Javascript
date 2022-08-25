@@ -1,5 +1,5 @@
 // Promises
-function geraNumRandom(min, max) {
+function randNum(min, max) {
   min *= 1000;
   max *= 1000;
   let random = Math.random() * (max - min) - min;
@@ -7,29 +7,25 @@ function geraNumRandom(min, max) {
   return Math.floor(random);
 }
 
-function esperaTempo(msg, tempo) {
+function waitData (message, time) {
   return new Promise((resolve, reject) => {
-    if (typeof msg !== "string") reject("Bad Value");
+    if(typeof(message) !== 'string'){
+      reject('The message must be a string');
+    }
 
     setTimeout(() => {
-      resolve(msg);
-    }, tempo);
+      resolve(message);
+    }, time)
   });
 }
 
-esperaTempo("Frase 1", geraNumRandom(1, 3))
-  .then((resposta) => {
-    console.log(resposta);
-    return esperaTempo("Frase 2", geraNumRandom(1, 3)).then((resposta) => {
-      console.log(resposta);
-      return esperaTempo(7, geraNumRandom(1, 3)).then((resposta) => {
-        console.log(resposta);
-        return;
-      });
-    });
-  })
-  .catch((e) => {
-    console.log("Erro:", e);
-  });
-//('Frase 2', geraNumRandom(1, 3));
-//esperaTempo('Frase 3', geraNumRandom(1, 3));
+waitData('First Request', randNum(1, 5))
+    .then(resp => {
+      console.log(resp);
+      return waitData('Second Request', randNum(1,3));
+    }).then(resp => {
+      console.log(resp);
+      return waitData('Third Request', randNum(1,12));
+    }).then(resp => {
+      console.log(resp);
+    }).catch(e => console.log(e));

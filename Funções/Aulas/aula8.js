@@ -51,3 +51,23 @@ console.log(p1.imc);
 console.log(p1.nomeCompleto)
 p1.nomeCompleto = 'Cristiano Ronaldo Silva';
 console.log(p1.nomeCompleto)
+
+
+function criaProdutos (nome, marca, preco) {
+    return {
+        nome,
+        marca,
+        preco,
+
+        descreve() {
+            console.log(`O produto é ${this.nome} da marca${this.marca} que custa: R$${this.preco}`)
+        }
+    }
+}
+
+
+
+const prod1 = criaProdutos('iphone', 'Apple', 3800);
+
+
+prod1.descreve();
